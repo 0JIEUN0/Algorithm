@@ -16,22 +16,18 @@ import java.util.HashSet;
 
 class Solution {
     public int solution(String numbers) {
-        int[] numbers_int = Arrays.stream(numbers.split(""))
-                .mapToInt(Integer::parseInt)
-                .toArray();
-        String[] eachN = numbers.split("");
         HashSet<Integer> set = new HashSet<>();
         boolean[] visited = new boolean[numbers.length()];
-        dfs("", eachN, visited, set);
+        dfs("", numbers, visited, set);
         return set.size();
     }
-    public static void dfs(String before, String[] eachN, boolean[] visited, HashSet<Integer> set) {
+    public static void dfs(String before, String numbers, boolean[] visited, HashSet<Integer> set) {
         for (int i=0; i<visited.length; i++) {
             if (!visited[i]) {
                 visited[i] = true;
-                int now = Integer.parseInt(before + eachN[i]);
+                int now = Integer.parseInt(before + numbers.charAt(i));
                 if (isPrime(now)) set.add(now);
-                dfs(Integer.toString(now), eachN, visited, set);
+                dfs(Integer.toString(now), numbers, visited, set);
                 visited[i] = false;
             }
         }
